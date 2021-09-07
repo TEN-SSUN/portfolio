@@ -149,8 +149,8 @@ function Header(props)
         <div style={{padding:'18px' ,position:'absolute' ,left:'0px',right:'0px'}}>
             <LogoDiv id="logo" onClick={onClickLogo}>TEN_SSUN</LogoDiv>
             <MenuIconDiv onClick={onClick}>
-                <MenuIconTop    id="menuIconTop"        topMenuBarTop={topMenuBarTop} topMenuBarRote={topMenuBarRote} id="menuIconTop"></MenuIconTop>
-                <MenuIconBottom id="menuIconBottom"     bottomMenuBarTop={bottomMenuBarTop} bottomMenuBarRete={bottomMenuBarRete} id="menuIconBottom"></MenuIconBottom>
+                <MenuIconTop    id="menuIconTop"    topMenuBarTop={topMenuBarTop} topMenuBarRote={topMenuBarRote}></MenuIconTop>
+                <MenuIconBottom id="menuIconBottom" bottomMenuBarTop={bottomMenuBarTop} bottomMenuBarRete={bottomMenuBarRete}></MenuIconBottom>
             </MenuIconDiv>
         </div>
         </Fragment>

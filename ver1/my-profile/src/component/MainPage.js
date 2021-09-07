@@ -1,4 +1,4 @@
-import React, { Fragment,useState,useEffect } from "react";
+import React, { Fragment,useEffect } from "react";//,useState
 import styled from "styled-components";
 import {withRouter} from "react-router-dom";
 import mainPageImg from '../img/cat_keyboard.jpg';
@@ -11,15 +11,31 @@ const BgDivision = styled.div`
     overflow: hidden;
 `;
 
-const MainImage = styled.div`
+const MainImageDiv = styled.div`
     position : absolute;
     top : 30%;
     left : 800px;
     width : 300px;
     height: 450px;
-    background-color : white;
-    background-size: cover;
-    background-image : url(${mainPageImg});
+    overflow: hidden;
+`;
+
+// background-color : white;
+// background-size: cover;
+// //background-image : url(${mainPageImg});
+// object-fit: cover;
+// overflow: hidden;
+// transition : transform ease 0.3s; 
+
+const MainImage = styled.img`
+    width : 100%;
+    height : 100%;
+    object-fit : scale-down;
+    overflow: hidden;
+    transition : transform ease 0.3s; 
+    &:hover {
+         transform: scale(1.15);
+      }
 `;
 
 const MainTextDivision = styled.div`
@@ -47,18 +63,18 @@ const SubText = styled.p`
     width : 500px;
 `;
 
-const Circle = styled.div`
-	width: 100px;  
-    height: 100px;
-	background-color: #FFF;
-	position: absolute;
-	top: 60px; 
-    left: 60px;
-	mix-blend-mode: difference; 
-	border-radius: 50%;
-	will-change: transform;
-    transition : all ease 0.0001s;
-`;
+// const Circle = styled.div`
+// 	width: 100px;  
+//     height: 100px;
+// 	background-color: #FFF;
+// 	position: absolute;
+// 	top: 60px; 
+//     left: 60px;
+// 	mix-blend-mode: difference; 
+// 	border-radius: 50%;
+// 	will-change: transform;
+//     transition : all ease 0.0001s;
+// `;
 
 //transform :  translate3d(${props => props.moveX}px, ${props => props.moveY}px, 0);
     
@@ -95,7 +111,7 @@ function MainPage()
         <Fragment>
             <BgDivision >
             {/* // onMouseMove={handleMouseMove} */}
-            <MainImage></MainImage>
+            <MainImageDiv><MainImage src={mainPageImg}/></MainImageDiv>
             <MainTextDivision>
                 <MainText>Hi, I'm Dongsun Park</MainText>
                 <SubText>Freelance Front-End and Back-End Developer with an appetite for web design, based in Korea</SubText>

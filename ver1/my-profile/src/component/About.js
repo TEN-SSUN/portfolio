@@ -1,7 +1,7 @@
-import React, { Fragment,useState } from "react";
+import React, { Fragment,useState,useEffect,useCallback } from "react";
 import styled from "styled-components";
 import { useLocation } from 'react-router-dom';
-import wave from '../img/wave2.jpg';
+//import wave from '../img/wave2.jpg';
 
 const MainTextDivision = styled.div`
     position : absolute;
@@ -46,12 +46,14 @@ const SubText = styled.h1`
 
 const SubText2 = styled.span`
     color : white;
-    opacity: 1;
+    opacity: 0.85;
+    &:hover {
+        opacity: 1;
+      }
 `;
 
-
 const TextKorea = styled.span`
-    background: linear-gradient(to bottom, #ff0000, #0000ff);
+    background: linear-gradient(to bottom, #ff0000 15%, #0000ff);
     -webkit-background-clip: text;
             background-clip: text;
     color: transparent;
@@ -61,16 +63,25 @@ const TextKorea = styled.span`
 
 function Contact() 
 {
-    const [browserWidth, setBrowserWidth] = useState(window.innerWidth);
-    const [browserHeight, setBrowserHeight] = useState(window.innerHeight);
+    const [browserWidth, setBrowserWidth] = useState(document.documentElement.clientWidth);
+    const [browserHeight, setBrowserHeight] = useState(document.documentElement.clientHeight);
 
     const location = useLocation();
     console.log(location);
 
+    const handleWindowResize = useCallback(event => {
+        setBrowserWidth(document.documentElement.clientWidth);
+        setBrowserHeight(document.documentElement.clientHeight);
+    }, []); 
+
+    useEffect(() => {
+        window.addEventListener('resize', handleWindowResize);
+    },[handleWindowResize])
+    
     return (
         <Fragment>
             <MainTextDivision id="MainTextDivision" browserWidth={browserWidth} browserHeight={browserHeight}>
-                <MainText id="mainTitle">About</MainText>
+                <MainText id="mainTitle"></MainText>
                 <SubText>Freelance <SubText2>Front-End</SubText2> and <SubText2>Back-End</SubText2> Developer with an appetite for web design, based in <TextKorea>Korea</TextKorea></SubText>
             </MainTextDivision>
             <MainTextDivision2 id="MainTextDivision2" browserWidth={browserWidth} browserHeight={browserHeight}>
