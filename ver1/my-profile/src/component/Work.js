@@ -99,12 +99,6 @@ const MainImage = styled.img`
     }
 `;
 
-// &:hover:before, 
-// &:hover:after {
-//   opacity: 1;
-//   left: 50%; top: 50%;
-// }
-
 const MainImageCover = styled.div`     
     position : absolute;
     left : 0px;
