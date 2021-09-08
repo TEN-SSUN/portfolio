@@ -14,6 +14,7 @@ const MainTextDivision2 = styled.div`
     top : ${props => props.browserHeight}px;
     width : ${props => props.browserWidth}px;
     height : ${props => props.browserHeight}px;
+    background-color:white;
 `;
 
 const MainText = styled.p`

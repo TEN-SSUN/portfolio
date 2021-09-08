@@ -32,9 +32,9 @@ const MainImage = styled.img`
     height : 100%;
     object-fit : scale-down;
     overflow: hidden;
-    transition : transform ease 0.3s; 
+    transition : transform ease 0.5s; 
     &:hover {
-         transform: scale(1.15);
+         transform: scale(1.05);
       }
 `;
 

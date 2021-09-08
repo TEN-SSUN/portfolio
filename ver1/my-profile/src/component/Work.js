@@ -3,15 +3,29 @@ import styled from "styled-components";
 import { useLocation } from 'react-router-dom';
 import sunset from '../img/sunset2.jpg';
 
-const MainTextDivision = styled.div`
+const WorkFullDivision = styled.div`
     position : absolute;
     width : ${props => props.browserWidth}px;
+    height : ${props => props.browserHeight*3}px; 
+    background-color:${props => props.worksMainColor};
+    transition : all ease 0.2s;
+`;
+
+const MainTextDivision = styled.div`
+    position : absolute;
+    top : ${props => props.browserHeight*0}px;
+    width : ${props => props.browserWidth}px;
     height : ${props => props.browserHeight}px; 
-    background-color:black;
 `;
 const MainTextDivision2 = styled.div`
     position : absolute;
-    top : ${props => props.browserHeight}px;
+    top : ${props => props.browserHeight*1}px;
+    width : ${props => props.browserWidth}px;
+    height : ${props => props.browserHeight}px;
+`;
+const MainTextDivision3 = styled.div`
+    position : absolute;
+    top : ${props => props.browserHeight*2}px;
     width : ${props => props.browserWidth}px;
     height : ${props => props.browserHeight}px;
 `;
@@ -32,7 +46,7 @@ const MainText = styled.p`
 
 const SubText = styled.p`
     position : relative;
-    color : gray;
+    color : #CC723D;
     font-weight : bold;
     font-size : 45px;
     margin : 10px;
@@ -55,6 +69,7 @@ const MainImageDiv = styled.div`
     overflow: hidden;
     padding:0px;
     margin:0px;
+    cursor: pointer;
     &:after{
         content:"";
         width: 1px; 
@@ -116,6 +131,7 @@ function Contact()
 {
     const [browserWidth, setBrowserWidth] = useState(document.documentElement.clientWidth);
     const [browserHeight, setBrowserHeight] = useState(document.documentElement.clientHeight);
+    const [worksMainColor, setWorksMainColor] = useState("#C4B73B");
 
     const location = useLocation();
     console.log(location);
@@ -125,20 +141,44 @@ function Contact()
         setBrowserHeight(document.documentElement.clientHeight);
     }, []); 
 
+    const handleScrollMove = useCallback(event => {
+        console.log((700>=window.pageYOffset)+" | "+((Number(browserHeight*0)+Number(700))<Number(window.pageYOffset))+" | "+ ((Number(browserHeight*1)+Number(700))<Number(window.pageYOffset)));
+
+        if((Number(browserHeight*1)+Number(700))<Number(window.pageYOffset))
+        {
+            setWorksMainColor("#C4003B");
+        }
+        else if((Number(browserHeight*0)+Number(700))<Number(window.pageYOffset))
+        {
+            setWorksMainColor("#00B73B");
+        }
+        else if(700>=window.pageYOffset)
+        {
+            setWorksMainColor("#C4B73B");
+        }
+
+    }, []); 
+
     useEffect(() => {
         window.addEventListener('resize', handleWindowResize);
+        window.addEventListener('scroll', handleScrollMove);
     },[handleWindowResize])
     
     return (
-        <Fragment>0.
-            <MainTextDivision id="MainTextDivision" browserWidth={browserWidth} browserHeight={browserHeight}>
-                <MainImageDiv><MainImage src={sunset} /></MainImageDiv>
-                <MainText id="mainTitle"></MainText>
-                <SubText>Freelance Front-End and Back-End Developer with an appetite for web design, based in Korea</SubText>
-            </MainTextDivision>
-            <MainTextDivision2 id="MainTextDivision2" browserWidth={browserWidth} browserHeight={browserHeight}>
-                <SubText>Freelance Front-End and Back-End Developer with an appetite for web design, based in <span style={{fontColor:"red"}}>Korea</span></SubText>
-            </MainTextDivision2>
+        <Fragment>
+            <WorkFullDivision id="WorkFullDivision" browserWidth={browserWidth} browserHeight={browserHeight} worksMainColor={worksMainColor}>
+                <MainTextDivision id="MainTextDivision" browserWidth={browserWidth} browserHeight={browserHeight}>
+                    <MainImageDiv><MainImage src={sunset} /></MainImageDiv>
+                    <MainText id="mainTitle"></MainText>
+                    <SubText>Freelance Front-End and Back-End Developer with an appetite for web design, based in Korea</SubText>
+                </MainTextDivision>
+                <MainTextDivision2 id="MainTextDivision2" browserWidth={browserWidth} browserHeight={browserHeight}>
+                    <SubText>Freelance Front-End and Back-End Developer with an appetite for web design, based in <span style={{fontColor:"red"}}>Korea</span></SubText>
+                </MainTextDivision2>
+                <MainTextDivision3 id="MainTextDivision3" browserWidth={browserWidth} browserHeight={browserHeight}>
+                    <SubText>Freelance Front-End and Back-End Developer with an appetite for web design, based in <span style={{fontColor:"red"}}>Korea</span></SubText>
+                </MainTextDivision3>
+            </WorkFullDivision>
         </Fragment>
     );
   }
