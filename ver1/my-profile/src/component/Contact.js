@@ -46,7 +46,7 @@ const MainText = styled.p`
 function Contact() 
 {
     const location = useLocation();
-    console.log(location);
+    //console.log(location);
 
     return (
             <Fragment>

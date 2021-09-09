@@ -68,7 +68,7 @@ function Contact()
     const [browserHeight, setBrowserHeight] = useState(document.documentElement.clientHeight);
 
     const location = useLocation();
-    console.log(location);
+    //console.log(location);
 
     const handleWindowResize = useCallback(event => {
         setBrowserWidth(document.documentElement.clientWidth);

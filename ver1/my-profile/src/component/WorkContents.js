@@ -14,7 +14,7 @@ const MainImageDiv = styled.div`
     background-color:white;
     position : absolute;
     top : 50%;
-    left : 60px;
+    left : 40px;
     transform: translate(0%, -40%);
     overflow: hidden;
     padding:0px;
@@ -69,24 +69,30 @@ const MainText = styled.p`
     padding :0px;
     margin : 0px;
     display:flex;
-    left : 50%;
+    justify-content:center;
+    left : 60px;
+    //transform: translate(-50%);
+    //left : 50%;
     top: 170px;
-    transform: translate(-50%);
     font-size : 80px;
     transition : all ease 0.3s;
     color : black;
     font-weight : bold;
 `;
+//text-align : center;
 
 const SubText = styled.p`
-    position : relative;
+    position : absolute;
     color : #CC723D;
     font-weight : bold;
     font-size : 45px;
-    margin : 10px;
+    margin-top : 10px;
+    margin-right : 0px;
+    margin-bottom : 0px;
+    margin-left : 0px;
     transition : all ease 0.3s; 
-    width : 750px;
-    left : 35%;
+    width : ${props => Number(props.browserWidth*1)-Number(420)}px;
+    left : 380px;
     top : 30%;
     //transform: translate(-50%, -50%);
     opacity:0.9;
@@ -100,7 +106,6 @@ function Contact(props)
     //const [worksMainColor, setWorksMainColor] = useState("#C4B73B");
 
     useEffect(() => {
-        console.log(props.contents)
         setNum(props.num)
         setBrowserWidth(props.browserWidth);
         setBrowserHeight(props.browserHeight);
@@ -110,7 +115,7 @@ function Contact(props)
             <MainTextDivision id={"MainContentDivision"+num} browserWidth={browserWidth} browserHeight={browserHeight} num={num} color={props.color}>
                 <MainImageDiv><MainImage src={props.img} /></MainImageDiv>
                 <MainText id="mainTitle">{props.title}</MainText>
-                <SubText>{props.contents}</SubText>
+                <SubText browserWidth={browserWidth}>{props.contents}</SubText>
             </MainTextDivision>
     );
   }
