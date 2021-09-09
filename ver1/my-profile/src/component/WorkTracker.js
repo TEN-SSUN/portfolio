@@ -17,11 +17,12 @@ const ImgButton = styled.img`
     width:48px;
     height:48px;
     margin-bottom:3px;
+    cursor : pointer;
 `;
 
 //config vars
 const lagAmount = 50;
-const maxSpeed = 100;
+const maxSpeed = 1000;
 const frameRate = 20;
 //code
 let scrollTop = 0;
@@ -30,21 +31,24 @@ let lastTime;
 
 const updatePinPosition = (time) => 
 {
-    if (!lastTime)
+    if(document.getElementById('fullDiv')!=null)
     {
-        lastTime = time;
-    }
+        if (!lastTime)
+        {
+            lastTime = time;
+        }
 
-    let delta = time - lastTime;
-    if (delta >= frameRate)
-    {
-        scrollTop = window.pageYOffset;
-        var move = (scrollTop - pinTop) * delta / (lagAmount + delta);
-        var direction = move === 0 ? 0 : move / Math.abs(move);
-        pinTop = pinTop + Math.min( Math.abs(move), maxSpeed ) * direction;
+        let delta = time - lastTime;
+        if (delta >= frameRate)
+        {
+            scrollTop = window.pageYOffset;
+            var move = (scrollTop - pinTop) * delta / (lagAmount + delta);
+            var direction = move === 0 ? 0 : move / Math.abs(move);
+            pinTop = pinTop + Math.min( Math.abs(move), maxSpeed ) * direction;
 
-        document.getElementById('fullDiv').style.transform = `translateY(${-move}px)`;
-        lastTime = time;
+            document.getElementById('fullDiv').style.transform = `translateY(${-move}px)`;
+            lastTime = time;
+        }
     }
     requestAnimationFrame(updatePinPosition);
 }
