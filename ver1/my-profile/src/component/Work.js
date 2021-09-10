@@ -16,6 +16,17 @@ const WorkFullDivision = styled.div`
     overflow: hidden;
 `;
 
+const LeftMenuDivision = styled.div`
+    position : fixed;
+    width : 2px;
+    height : ${props => props.browserHeight*0.8}px; 
+    bottom : 0px;
+    left : 40px;
+    background-color:white;
+    transition : background-color ease 1s;
+    overflow: hidden;
+`;
+
 function Contact() 
 {
     const workList= [
@@ -94,7 +105,7 @@ function Contact()
             }
         }
         
-    }, []); 
+    }, [browserHeight,workList]); 
 
     useEffect(() => 
     {
@@ -106,15 +117,15 @@ function Contact()
 
     },[handleWindowResize,handleScrollMove]);
 
-    const onMoveTop = () =>{
-        window.scrollTo({top: 0, behavior: 'smooth'});
-    }
+    // const onMoveTop = () =>{
+    //     window.scrollTo({top: 0, behavior: 'smooth'});
+    // }
 
-    const onMoveBottom = () =>{
-        let tempTop = document.getElementById('MainContentDivision'+(workList.length)).offsetTop
+    // const onMoveBottom = () =>{
+    //     let tempTop = document.getElementById('MainContentDivision'+(workList.length)).offsetTop
 
-        window.scrollTo({top:tempTop,behavior: 'smooth'});
-    }
+    //     window.scrollTo({top:tempTop,behavior: 'smooth'});
+    // }
 
     
     return (
@@ -124,6 +135,9 @@ function Contact()
                     <WorkContents id={"workContents"+seq} browserWidth={browserWidth} browserHeight={browserHeight} num={seq} img={img} title={title} contents={contents}/>
                     ))} 
             </WorkFullDivision>
+            <LeftMenuDivision id="LeftMenuDivision" browserHeight={browserHeight}>
+                
+            </LeftMenuDivision>
             {/* <WorkTracker posStatus={posStatus} onMoveTop={onMoveTop} onMoveBottom={onMoveBottom}/> */}
         </Fragment>
     );

@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
-import { useLocation } from 'react-router-dom';
+//import { useLocation } from 'react-router-dom';
 //import sky_forest from '../img/sky_forest.jpg';
 //import AnimationTest from './AnimationTest';
 
@@ -45,7 +45,7 @@ const MainText = styled.p`
 
 function Contact() 
 {
-    const location = useLocation();
+    //const location = useLocation();
     //console.log(location);
 
     return (

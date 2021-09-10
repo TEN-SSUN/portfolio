@@ -1,9 +1,9 @@
 import React, { Fragment,useState,useEffect,useCallback } from "react";
 import styled from "styled-components";
 
-import WorkTracker from './WorkTracker';
+import PageTracker from './PageTracker';
 
-import { useLocation } from 'react-router-dom';
+//import { useLocation } from 'react-router-dom';
 //import wave from '../img/wave2.jpg';
 
 const MainTextDivision = styled.div`
@@ -71,7 +71,7 @@ function Contact()
     const [browserHeight, setBrowserHeight] = useState(document.documentElement.clientHeight);
     const [posStatus, setPosStatus] = useState("N");
 
-    const location = useLocation();
+    //sconst location = useLocation();
     //console.log(location);
 
     const handleWindowResize = useCallback(event => {
@@ -111,7 +111,7 @@ function Contact()
         //     }
         // }
         
-    }, []); 
+    }, [cPos]); 
 
     const onMoveTop = () =>{
         window.scrollTo({top: 0, behavior: 'smooth'});
@@ -140,7 +140,7 @@ function Contact()
             <MainTextDivision2 id="MainTextDivision2" browserWidth={browserWidth} browserHeight={browserHeight}>
                 <SubText>Freelance <SubText2>Front-End</SubText2> and Back-End Developer with an appetite for web design, based in <p style={{fontColor:"red"}}>Korea</p></SubText>
             </MainTextDivision2>
-            <WorkTracker posStatus={posStatus} onMoveTop={onMoveTop} onMoveBottom={onMoveBottom}/>
+            <PageTracker posStatus={posStatus} onMoveTop={onMoveTop} onMoveBottom={onMoveBottom}/>
         </Fragment>
     );
   }
