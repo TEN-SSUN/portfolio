@@ -1,5 +1,8 @@
 import React, { Fragment,useState,useEffect,useCallback } from "react";
 import styled from "styled-components";
+
+import WorkTracker from './WorkTracker';
+
 import { useLocation } from 'react-router-dom';
 //import wave from '../img/wave2.jpg';
 
@@ -7,7 +10,7 @@ const MainTextDivision = styled.div`
     position : absolute;
     width : ${props => props.browserWidth}px;
     height : ${props => props.browserHeight}px; 
-    background-color:black;
+    background-color:lightgray;
 `;
 const MainTextDivision2 = styled.div`
     position : absolute;
@@ -42,12 +45,12 @@ const SubText = styled.h1`
     left : 50%;
     top : 50%;
     transform: translate(-50%, -50%);
-    opacity:0.9;
+    opacity:0.7;
 `;
 
 const SubText2 = styled.span`
-    color : white;
-    opacity: 0.85;
+    color : black;
+    opacity: 0.7;
     &:hover {
         opacity: 1;
       }
@@ -66,6 +69,7 @@ function Contact()
 {
     const [browserWidth, setBrowserWidth] = useState(document.documentElement.clientWidth);
     const [browserHeight, setBrowserHeight] = useState(document.documentElement.clientHeight);
+    const [posStatus, setPosStatus] = useState("N");
 
     const location = useLocation();
     //console.log(location);
@@ -75,9 +79,57 @@ function Contact()
         setBrowserHeight(document.documentElement.clientHeight);
     }, []); 
 
+    let cPos =0; 
+    const handleScrollMove = useCallback(event => {
+
+        if(Number(cPos)-Number(window.pageYOffset)<0)
+        {
+            setPosStatus("D");
+        }
+        else if(Number(cPos)-Number(window.pageYOffset)>0)
+        {
+            setPosStatus("U");
+        }
+        else
+        {
+            setPosStatus("N")
+        }
+
+        cPos=window.pageYOffset;
+
+        // for(let i=workList.length-1; i>=1 ;i--)
+        // {
+        //     if((Number(browserHeight*(i-1))+Number(300))<Number(window.pageYOffset))
+        //     {
+        //         setWorksMainColor(workList[i].color);
+        //         break;
+        //     }
+        //     else if(300>=window.pageYOffset)
+        //     {
+        //         setWorksMainColor(workList[0].color);
+        //         break;
+        //     }
+        // }
+        
+    }, []); 
+
+    const onMoveTop = () =>{
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    const onMoveBottom = () =>{
+        let tempTop = 1000;//document.getElementById('MainContentDivision'+(workList.length)).offsetTop;
+
+        window.scrollTo({top:tempTop,behavior: 'smooth'});
+    }
+
     useEffect(() => {
+        setBrowserWidth(document.documentElement.clientWidth);
+        setBrowserHeight(document.documentElement.clientHeight);
+
         window.addEventListener('resize', handleWindowResize);
-    },[handleWindowResize])
+        window.addEventListener('scroll', handleScrollMove);
+    },[handleWindowResize,handleScrollMove])
     
     return (
         <Fragment>
@@ -88,6 +140,7 @@ function Contact()
             <MainTextDivision2 id="MainTextDivision2" browserWidth={browserWidth} browserHeight={browserHeight}>
                 <SubText>Freelance <SubText2>Front-End</SubText2> and Back-End Developer with an appetite for web design, based in <p style={{fontColor:"red"}}>Korea</p></SubText>
             </MainTextDivision2>
+            <WorkTracker posStatus={posStatus} onMoveTop={onMoveTop} onMoveBottom={onMoveBottom}/>
         </Fragment>
     );
   }

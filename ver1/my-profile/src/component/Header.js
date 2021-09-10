@@ -88,6 +88,7 @@ function Header(props)
             setBottomMenuBarRete('rotate( -45deg )');
             props.onQkrddong(true);
         }
+        window.scrollTo({top: 0, behavior: 'smooth'});
     };
 
     const onClickLogo = () =>
@@ -124,6 +125,7 @@ function Header(props)
             props.onQkrddong(false);
             document.getElementById('menuIconTop').style.backgroundImage = "url("+minusMenuIcon_w+")";
             document.getElementById('menuIconBottom').style.backgroundImage = "url("+minusMenuIcon_w+")";
+            document.body.style.overflow = 'visible';
         }
         else
         {
@@ -135,6 +137,7 @@ function Header(props)
             props.onQkrddong(true);
             document.getElementById('menuIconTop').style.backgroundImage = "url("+minusMenuIcon_b+")";
             document.getElementById('menuIconBottom').style.backgroundImage = "url("+minusMenuIcon_b+")";
+            document.body.style.overflow = 'hidden';
         }
         
     }, [props

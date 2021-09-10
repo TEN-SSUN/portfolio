@@ -1,8 +1,6 @@
 import React, { Fragment, useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
-//simport { useLocation } from 'react-router-dom';
 import WorkContents from './WorkContents';
-import WorkTracker from './WorkTracker';
 
 import sunset from '../img/sunset2.jpg';
 import sunglesses from '../img/cat_sunglesses.jpg';
@@ -52,13 +50,13 @@ function Contact()
                                     `
                         }
                     ]
-    let cPos =0; 
+    //let cPos =0; 
 
     const [browserWidth, setBrowserWidth] = useState(document.documentElement.clientWidth);
     const [browserHeight, setBrowserHeight] = useState(document.documentElement.clientHeight);
     const [worksMainColor, setWorksMainColor] = useState(workList[0].color);
     const [workListCount] = useState(workList.length);
-    const [posStatus, setPosStatus] = useState("N");
+    //const [posStatus, setPosStatus] = useState("N");
 
     const handleWindowResize = useCallback(event => {
         setBrowserWidth(document.documentElement.clientWidth);
@@ -67,20 +65,20 @@ function Contact()
 
     const handleScrollMove = useCallback(event => {
 
-        if(Number(cPos)-Number(window.pageYOffset)<0)
-        {
-            setPosStatus("D");
-        }
-        else if(Number(cPos)-Number(window.pageYOffset)>0)
-        {
-            setPosStatus("U");
-        }
-        else
-        {
-            setPosStatus("N")
-        }
+        // if(Number(cPos)-Number(window.pageYOffset)<0)
+        // {
+        //     setPosStatus("D");
+        // }
+        // else if(Number(cPos)-Number(window.pageYOffset)>0)
+        // {
+        //     setPosStatus("U");
+        // }
+        // else
+        // {
+        //     setPosStatus("N")
+        // }
 
-        cPos=window.pageYOffset;
+        // cPos=window.pageYOffset;
 
         for(let i=workList.length-1; i>=1 ;i--)
         {
@@ -126,7 +124,7 @@ function Contact()
                     <WorkContents id={"workContents"+seq} browserWidth={browserWidth} browserHeight={browserHeight} num={seq} img={img} title={title} contents={contents}/>
                     ))} 
             </WorkFullDivision>
-            <WorkTracker posStatus={posStatus} onMoveTop={onMoveTop} onMoveBottom={onMoveBottom}/>
+            {/* <WorkTracker posStatus={posStatus} onMoveTop={onMoveTop} onMoveBottom={onMoveBottom}/> */}
         </Fragment>
     );
   }
