@@ -70,6 +70,7 @@ function Contact()
     const [browserWidth, setBrowserWidth] = useState(document.documentElement.clientWidth);
     const [browserHeight, setBrowserHeight] = useState(document.documentElement.clientHeight);
     const [posStatus, setPosStatus] = useState("N");
+    const [cPos, setCPos] = useState(0);
 
     //sconst location = useLocation();
     //console.log(location);
@@ -79,7 +80,6 @@ function Contact()
         setBrowserHeight(document.documentElement.clientHeight);
     }, []); 
 
-    let cPos =0; 
     const handleScrollMove = useCallback(event => {
 
         if(Number(cPos)-Number(window.pageYOffset)<0)
@@ -95,7 +95,7 @@ function Contact()
             setPosStatus("N")
         }
 
-        cPos=window.pageYOffset;
+        setCPos(window.pageYOffset);
 
         // for(let i=workList.length-1; i>=1 ;i--)
         // {

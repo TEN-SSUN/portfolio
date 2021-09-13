@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import WorkContents from './WorkContents';
+import WorkContentsMenu from './WorkContentsMenu';
 
 import sunset from '../img/sunset2.jpg';
 import sunglesses from '../img/cat_sunglesses.jpg';
@@ -29,44 +30,51 @@ const LeftMenuDivision = styled.div`
 
 function Contact() 
 {
-    const workList= [
-                        {
-                        seq: 1
-                        ,color:"#C4B73B"
-                        ,img:sunset
-                        ,title:"SunSet"
-                        ,contents:"Peaceful sea"
-                        },
-                        {
-                        seq: 2
-                        ,color:"#80b463"
-                        ,img:sky_forest
-                        ,title:"Forest"
-                        ,contents:"I Love Camping"
-                        },
-                        {
-                        seq: 3
-                        ,color:"#b0dfb8"
-                        ,img:wave
-                        ,title:"Wave"
-                        ,contents:"So~~Cooooooooooooooooool"
-                        },
-                        {
-                        seq: 4
-                        ,color:"#ef404f"//C4003B
-                        ,img:sunglesses
-                        ,title:"나만 없어 고양이 ㅠ"
-                        ,contents:`Gangnam Style~
-                                    Korea
-                                    `
-                        }
-                    ]
+    const [workList]= useState([
+                                {
+                                seq: 1
+                                ,color:"#C4B73B"
+                                ,img:sunset
+                                ,title:"SunSet"
+                                ,contents:"Peaceful sea"
+                                ,status:"N"
+                                },
+                                {
+                                seq: 2
+                                ,color:"#80b463"
+                                ,img:sky_forest
+                                ,title:"Forest"
+                                ,contents:"I Love Camping"
+                                ,status:"N"
+                                },
+                                {
+                                seq: 3
+                                ,color:"#b0dfb8"
+                                ,img:wave
+                                ,title:"Wave"
+                                ,contents:"So~~Cooooooooooooooooool"
+                                ,status:"N"
+                                },
+                                {
+                                seq: 4
+                                ,color:"#ef404f"//C4003B
+                                ,img:sunglesses
+                                ,title:"나만 없어 고양이 ㅠ"
+                                ,contents:`Gangnam Style~
+                                            Korea
+                                            `
+                                ,status:"N"
+                                },
+                            ])
     //let cPos =0; 
 
     const [browserWidth, setBrowserWidth] = useState(document.documentElement.clientWidth);
     const [browserHeight, setBrowserHeight] = useState(document.documentElement.clientHeight);
     const [worksMainColor, setWorksMainColor] = useState(workList[0].color);
     const [workListCount] = useState(workList.length);
+    //const [gapPercent] = useState((0.8-0.4)/(workList.length-1));
+    const [gapPercent] = useState((0.075));
+    const [currentPage,setCurrentPage] = useState(1);
     //const [posStatus, setPosStatus] = useState("N");
 
     const handleWindowResize = useCallback(event => {
@@ -75,37 +83,30 @@ function Contact()
     }, []); 
 
     const handleScrollMove = useCallback(event => {
-
-        // if(Number(cPos)-Number(window.pageYOffset)<0)
-        // {
-        //     setPosStatus("D");
-        // }
-        // else if(Number(cPos)-Number(window.pageYOffset)>0)
-        // {
-        //     setPosStatus("U");
-        // }
-        // else
-        // {
-        //     setPosStatus("N")
-        // }
-
-        // cPos=window.pageYOffset;
-
+        
         for(let i=workList.length-1; i>=1 ;i--)
         {
             if((Number(browserHeight*(i-1))+Number(300))<Number(window.pageYOffset))
             {
                 setWorksMainColor(workList[i].color);
+                setCurrentPage(i+1);
                 break;
             }
             else if(300>=window.pageYOffset)
             {
                 setWorksMainColor(workList[0].color);
+                setCurrentPage(1);
                 break;
             }
         }
         
     }, [browserHeight,workList]); 
+
+    const omMoveContent =(num)=>
+    {
+        let tempTop = document.getElementById('MainContentDivision'+(num)).offsetTop;
+        window.scrollTo({top:tempTop,behavior: 'smooth'});
+    }
 
     useEffect(() => 
     {
@@ -116,29 +117,25 @@ function Contact()
         window.addEventListener('scroll', handleScrollMove);
 
     },[handleWindowResize,handleScrollMove]);
-
-    // const onMoveTop = () =>{
-    //     window.scrollTo({top: 0, behavior: 'smooth'});
-    // }
-
-    // const onMoveBottom = () =>{
-    //     let tempTop = document.getElementById('MainContentDivision'+(workList.length)).offsetTop
-
-    //     window.scrollTo({top:tempTop,behavior: 'smooth'});
-    // }
-
     
     return (
         <Fragment>
             <WorkFullDivision id="WorkFullDivision" browserWidth={browserWidth} browserHeight={browserHeight} worksMainColor={worksMainColor} workListCount={workListCount}>
                 {workList.map(({ seq, img, title, contents }) => (
-                    <WorkContents id={"workContents"+seq} browserWidth={browserWidth} browserHeight={browserHeight} num={seq} img={img} title={title} contents={contents}/>
+                    <WorkContents browserWidth={browserWidth} browserHeight={browserHeight} num={seq} img={img} title={title} contents={contents}/>
                     ))} 
             </WorkFullDivision>
             <LeftMenuDivision id="LeftMenuDivision" browserHeight={browserHeight}>
-                
+            {workList.map(({ seq, status }) => (
+                    <WorkContentsMenu   num={seq} 
+                                        status={status} 
+                                        gapPercent={gapPercent} 
+                                        browserHeight={browserHeight} 
+                                        omMoveContent={omMoveContent} 
+                                        currentPage={currentPage}
+                                    />
+                    ))}
             </LeftMenuDivision>
-            {/* <WorkTracker posStatus={posStatus} onMoveTop={onMoveTop} onMoveBottom={onMoveBottom}/> */}
         </Fragment>
     );
   }

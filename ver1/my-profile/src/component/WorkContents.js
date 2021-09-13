@@ -14,7 +14,7 @@ const MainImageDiv = styled.div`
     background-color:white;
     position : absolute;
     top : 50%;
-    left : 40px;
+    left : 150px;
     transform: translate(0%, -40%);
     overflow: hidden;
     padding:0px;
@@ -70,7 +70,7 @@ const MainText = styled.p`
     margin : 0px;
     display:flex;
     justify-content:center;
-    left : 60px;
+    left : 150px;
     //transform: translate(-50%);
     //left : 50%;
     top: 170px;
@@ -106,7 +106,7 @@ function Contact(props)
     //const [worksMainColor, setWorksMainColor] = useState("#C4B73B");
 
     useEffect(() => {
-        setNum(props.num)
+        setNum(props.num);
         setBrowserWidth(props.browserWidth);
         setBrowserHeight(props.browserHeight);
     },[props])

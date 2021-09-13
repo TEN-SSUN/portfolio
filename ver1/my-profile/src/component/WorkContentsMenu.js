@@ -1,0 +1,106 @@
+import React, {useState, useEffect} from "react";
+import styled from "styled-components";
+
+const WrapDiv = styled.div`
+`;
+// position : fixed;
+// left: 40px;
+// bottom : ${props => (props.browserHeight*(0.8-((props.num-(1))*props.gapPercent)))
+//     +(props.num>props.currentPage?-100:0)}px;
+// //width:1000px;
+// transition : all ease 0.3s;
+
+const MainTextDivision = styled.div`
+    position : fixed;
+    bottom : ${props => (props.browserHeight*(0.8-((props.num-(1))*props.gapPercent)))
+                        +(props.num>props.currentPage?-150:0)}px;
+    width : ${props => (props.num===props.currentPage?40:30)}px;
+    left: 40px;
+    height : 2px;
+    background-color:white; 
+    transition : all ease 0.3s;
+    padding:0px;
+    margin:0px;
+
+`;
+
+const NumberingText = styled.span`
+    font-size: ${props => (props.num===props.currentPage?48:32)}px;
+    position : fixed;
+    bottom : ${props => (props.browserHeight*(0.8-((props.num-1) *props.gapPercent)))
+                        +(props.num>props.currentPage?-150:0)}px;
+    left: ${props => (props.num===props.currentPage?90:80)}px;
+    padding-top : 0px;
+    padding-right : 10px;
+    padding-bottom : 0px;
+    padding-left : 0px;
+    margin : 0px;
+    color : white;
+    transform: translate(0, 50%);
+    transition : all ease 0.3s;
+    cursor : pointer;
+    &:hover {
+        left:90px;
+    }
+`;
+
+//${props => props.menuWidth}
+function lpad(s, padLength, padString)
+{ 
+    s = s+"";
+
+    while(s.length < padLength)
+        s = padString + s;
+
+    return s;
+}
+
+
+function Contact(props) 
+{
+    const [num, setNum] = useState(0);
+    const [gapPercent, setGapPercent] = useState(props.browserHeight);
+    const [browserHeight, setBrowserHeight] = useState(props.browserHeight);
+    const [currentPage, setCurrentPage] = useState(0);
+
+    const onMouseEnter =()=> {
+        
+        //document.getElementById("workMenuDiv"+num).style.width="40px";
+        // if(num!==currentPage)
+        // document.getElementById("workNumText"+num).style.transform="translate(10px, 50%)";
+        
+    }
+    
+    const onMouseLeave =()=> {
+        
+        //document.getElementById("workMenuDiv"+num).style.width="30px";   
+        // if(num!==currentPage)
+        // document.getElementById("workNumText"+num).style.transform="translate(0, 50%)"; 
+    }
+
+    const onClick =()=>{
+        props.omMoveContent(num);
+    }
+
+    useEffect(() => {
+        setNum(props.num);
+        setGapPercent(props.gapPercent);
+        setBrowserHeight(props.browserHeight);
+        setCurrentPage(props.currentPage);
+    },[props])
+    
+    return (
+        <WrapDiv onMouseEnter={onMouseEnter} 
+                onMouseLeave={onMouseLeave} 
+                onClick={onClick}
+                gapPercent={gapPercent} 
+                browserHeight={browserHeight} 
+                num={num} color={props.color} 
+                currentPage={currentPage}>
+            <MainTextDivision id={"workMenuDiv"+num} gapPercent={gapPercent} browserHeight={browserHeight} num={num} color={props.color} currentPage={currentPage}/>
+            <NumberingText id={"workNumText"+num} gapPercent={gapPercent} browserHeight={browserHeight} num={num} currentPage={currentPage}>{lpad(num,2,"0")}</NumberingText>
+        </WrapDiv>
+    );
+  }
+  
+export default Contact;
