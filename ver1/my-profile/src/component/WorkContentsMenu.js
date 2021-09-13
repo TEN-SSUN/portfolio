@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 
+const delaySec = 0.07;
 const WrapDiv = styled.div`
 `;
 // position : fixed;
@@ -21,7 +22,6 @@ const MainTextDivision = styled.div`
     transition : all ease 0.3s;
     padding:0px;
     margin:0px;
-
 `;
 
 const NumberingText = styled.span`
@@ -44,7 +44,47 @@ const NumberingText = styled.span`
     }
 `;
 
-//${props => props.menuWidth}
+const TitleDivision = styled.div`
+    position : fixed;
+    //background-color:white; 
+    transition : all ease ${props => (props.num===props.currentPage?0.3:0)}s;
+    padding:0px;
+    margin:0px;
+    visibility:${props => (props.num===props.currentPage?"visible":"hidden")};
+    height:40px;
+    bottom : ${props => (props.browserHeight*(0.8-((props.num-1) *props.gapPercent)))
+                        +(props.num!==props.currentPage?-150:0)-70}px;
+    left : 100px;
+    overflow:hidden;
+    font-size:30px;
+    color:white;
+    transition-delay:${delaySec}s;
+`;
+
+const SubTextDivision = styled.div`
+    position : fixed;
+    //background-color:white; 
+    transition : all ease ${props => (props.num===props.currentPage?0.3:0)}s;
+    padding:0px;
+    margin:0px;
+    visibility:${props => (props.num===props.currentPage?"visible":"hidden")};
+    height:40px;
+    bottom : ${props => (props.browserHeight*(0.8-((props.num-1) *props.gapPercent)))
+                        +(props.num!==props.currentPage?-150:0)-110}px;
+    left : 100px;
+    overflow:hidden;
+    font-size:20px;
+    color:white;
+    transition-delay:${delaySec}s;
+`;
+
+// position : fixed;
+// bottom : ${props => (props.browserHeight*(0.8-((props.num-(1))*props.gapPercent)))
+//                     +(props.num>props.currentPage?-150:0)}px;
+// width : ${props => (props.num===props.currentPage?40:30)}px;
+// left: 40px;
+// height : 2px;
+
 function lpad(s, padLength, padString)
 { 
     s = s+"";
@@ -99,6 +139,8 @@ function Contact(props)
                 currentPage={currentPage}>
             <MainTextDivision id={"workMenuDiv"+num} gapPercent={gapPercent} browserHeight={browserHeight} num={num} color={props.color} currentPage={currentPage}/>
             <NumberingText id={"workNumText"+num} gapPercent={gapPercent} browserHeight={browserHeight} num={num} currentPage={currentPage}>{lpad(num,2,"0")}</NumberingText>
+            <TitleDivision  gapPercent={gapPercent} browserHeight={browserHeight} currentPage={currentPage}  num={num}>{props.title}</TitleDivision>
+            <SubTextDivision  gapPercent={gapPercent} browserHeight={browserHeight} currentPage={currentPage}  num={num}>{props.contents}</SubTextDivision>
         </WrapDiv>
     );
   }

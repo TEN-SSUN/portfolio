@@ -64,16 +64,16 @@ export default function Contact(props)
         props.onMoveBottom();
     }
 
+    
     useEffect(() => 
     {
-        updatePinPosition();
-    },[props]);
+        requestAnimationFrame(updatePinPosition);
+    },[]);
 
     return (
         <WorkFullDivision id='fullDiv'> 
-        <ImgButton src={top_arrow} onClick={moveTop}/>
-        <ImgButton src={bottom_arrow} onClick={moveBottom}/>
-        {/* <ImgButton ></ImgButton> */}
+            <ImgButton src={top_arrow} onClick={moveTop}/>
+            <ImgButton src={bottom_arrow} onClick={moveBottom}/>
         </WorkFullDivision>
     );
 }

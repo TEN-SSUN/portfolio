@@ -14,7 +14,8 @@ const MainImageDiv = styled.div`
     background-color:white;
     position : absolute;
     top : 50%;
-    left : 150px;
+    //left : 150px;
+    right:70px;
     transform: translate(0%, -40%);
     overflow: hidden;
     padding:0px;
@@ -64,39 +65,39 @@ const MainImage = styled.img`
     }
 `;
 
-const MainText = styled.p`
-    position : absolute;
-    padding :0px;
-    margin : 0px;
-    display:flex;
-    justify-content:center;
-    left : 150px;
-    //transform: translate(-50%);
-    //left : 50%;
-    top: 170px;
-    font-size : 80px;
-    transition : all ease 0.3s;
-    color : black;
-    font-weight : bold;
-`;
-//text-align : center;
+// const MainText = styled.p`
+//     position : absolute;
+//     padding :0px;
+//     margin : 0px;
+//     display:flex;
+//     justify-content:center;
+//     left : 150px;
+//     //transform: translate(-50%);
+//     //left : 50%;
+//     top: 170px;
+//     font-size : 80px;
+//     transition : all ease 0.3s;
+//     color : black;
+//     font-weight : bold;
+// `;
+// //text-align : center;
 
-const SubText = styled.p`
-    position : absolute;
-    color : #CC723D;
-    font-weight : bold;
-    font-size : 45px;
-    margin-top : 10px;
-    margin-right : 0px;
-    margin-bottom : 0px;
-    margin-left : 0px;
-    transition : all ease 0.3s; 
-    width : ${props => Number(props.browserWidth*1)-Number(420)}px;
-    left : 380px;
-    top : 30%;
-    //transform: translate(-50%, -50%);
-    opacity:0.9;
-`;
+// const SubText = styled.p`
+//     position : absolute;
+//     color : #CC723D;
+//     font-weight : bold;
+//     font-size : 45px;
+//     margin-top : 10px;
+//     margin-right : 0px;
+//     margin-bottom : 0px;
+//     margin-left : 0px;
+//     transition : all ease 0.3s; 
+//     width : ${props => Number(props.browserWidth*1)-Number(420)}px;
+//     left : 380px;
+//     top : 30%;
+//     //transform: translate(-50%, -50%);
+//     opacity:0.9;
+// `;
 
 function Contact(props) 
 {
@@ -114,8 +115,8 @@ function Contact(props)
     return (
             <MainTextDivision id={"MainContentDivision"+num} browserWidth={browserWidth} browserHeight={browserHeight} num={num} color={props.color}>
                 <MainImageDiv><MainImage src={props.img} /></MainImageDiv>
-                <MainText id="mainTitle">{props.title}</MainText>
-                <SubText browserWidth={browserWidth}>{props.contents}</SubText>
+                {/* <MainText id="mainTitle">{props.title}</MainText>
+                <SubText browserWidth={browserWidth}>{props.contents}</SubText> */}
             </MainTextDivision>
     );
   }

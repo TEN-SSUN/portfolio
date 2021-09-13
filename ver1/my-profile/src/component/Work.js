@@ -33,37 +33,33 @@ function Contact()
     const [workList]= useState([
                                 {
                                 seq: 1
-                                ,color:"#C4B73B"
+                                ,color:"#ffcc00"
                                 ,img:sunset
                                 ,title:"SunSet"
                                 ,contents:"Peaceful sea"
-                                ,status:"N"
                                 },
                                 {
                                 seq: 2
-                                ,color:"#80b463"
+                                ,color:"#03C9A9"
                                 ,img:sky_forest
                                 ,title:"Forest"
                                 ,contents:"I Love Camping"
-                                ,status:"N"
                                 },
                                 {
                                 seq: 3
-                                ,color:"#b0dfb8"
+                                ,color:"#22A7F0"
                                 ,img:wave
                                 ,title:"Wave"
                                 ,contents:"So~~Cooooooooooooooooool"
-                                ,status:"N"
                                 },
                                 {
                                 seq: 4
-                                ,color:"#ef404f"//C4003B
+                                ,color:"#F64747"//C4003B
                                 ,img:sunglesses
                                 ,title:"나만 없어 고양이 ㅠ"
                                 ,contents:`Gangnam Style~
                                             Korea
                                             `
-                                ,status:"N"
                                 },
                             ])
     //let cPos =0; 
@@ -75,7 +71,6 @@ function Contact()
     //const [gapPercent] = useState((0.8-0.4)/(workList.length-1));
     const [gapPercent] = useState((0.075));
     const [currentPage,setCurrentPage] = useState(1);
-    //const [posStatus, setPosStatus] = useState("N");
 
     const handleWindowResize = useCallback(event => {
         setBrowserWidth(document.documentElement.clientWidth);
@@ -86,13 +81,13 @@ function Contact()
         
         for(let i=workList.length-1; i>=1 ;i--)
         {
-            if((Number(browserHeight*(i-1))+Number(300))<Number(window.pageYOffset))
+            if((Number(browserHeight*(i-1))+Number(500))<Number(window.pageYOffset))
             {
                 setWorksMainColor(workList[i].color);
                 setCurrentPage(i+1);
                 break;
             }
-            else if(300>=window.pageYOffset)
+            else if(500>=window.pageYOffset)
             {
                 setWorksMainColor(workList[0].color);
                 setCurrentPage(1);
@@ -126,13 +121,15 @@ function Contact()
                     ))} 
             </WorkFullDivision>
             <LeftMenuDivision id="LeftMenuDivision" browserHeight={browserHeight}>
-            {workList.map(({ seq, status }) => (
+            {workList.map(({ seq, status, title, contents }) => (
                     <WorkContentsMenu   num={seq} 
                                         status={status} 
                                         gapPercent={gapPercent} 
                                         browserHeight={browserHeight} 
                                         omMoveContent={omMoveContent} 
                                         currentPage={currentPage}
+                                        title={title} 
+                                        contents={contents}
                                     />
                     ))}
             </LeftMenuDivision>
