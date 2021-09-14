@@ -28,6 +28,17 @@ const LeftMenuDivision = styled.div`
     overflow: hidden;
 `;
 
+// const TestDiv = styled.div`
+//     margin:5px;
+//     text-align: center;
+//     font-size:30px;
+//     line-height: 100px;
+//     border:solid 1px black;
+//     background-color: yellow;
+//     position:sticky;
+//     top:0px;
+// `;
+
 function Contact() 
 {
     const [workList]= useState([
@@ -70,7 +81,7 @@ function Contact()
     const [workListCount] = useState(workList.length);
     //const [gapPercent] = useState((0.8-0.4)/(workList.length-1));
     const [gapPercent] = useState((0.075));
-    const [currentPage,setCurrentPage] = useState(1);
+    const [currentPage,setCurrentPage] = useState(0);
 
     const handleWindowResize = useCallback(event => {
         setBrowserWidth(document.documentElement.clientWidth);
@@ -81,13 +92,13 @@ function Contact()
         
         for(let i=workList.length-1; i>=1 ;i--)
         {
-            if((Number(browserHeight*(i-1))+Number(500))<Number(window.pageYOffset))
+            if((Number(browserHeight*(i-1))+(Number(browserHeight)/2))<Number(window.pageYOffset))
             {
                 setWorksMainColor(workList[i].color);
                 setCurrentPage(i+1);
                 break;
             }
-            else if(500>=window.pageYOffset)
+            else if((Number(browserHeight)/2)>=window.pageYOffset)
             {
                 setWorksMainColor(workList[0].color);
                 setCurrentPage(1);
@@ -111,13 +122,23 @@ function Contact()
         window.addEventListener('resize', handleWindowResize);
         window.addEventListener('scroll', handleScrollMove);
 
+        setCurrentPage(1);
+
     },[handleWindowResize,handleScrollMove]);
     
     return (
         <Fragment>
             <WorkFullDivision id="WorkFullDivision" browserWidth={browserWidth} browserHeight={browserHeight} worksMainColor={worksMainColor} workListCount={workListCount}>
+                
+                {/* <TestDiv>div3</TestDiv> */}
                 {workList.map(({ seq, img, title, contents }) => (
-                    <WorkContents browserWidth={browserWidth} browserHeight={browserHeight} num={seq} img={img} title={title} contents={contents}/>
+                    <WorkContents   browserWidth={browserWidth} 
+                                    browserHeight={browserHeight} 
+                                    num={seq}  
+                                    currentPage={currentPage}
+                                    img={img} 
+                                    title={title} 
+                                    contents={contents}/>
                     ))} 
             </WorkFullDivision>
             <LeftMenuDivision id="LeftMenuDivision" browserHeight={browserHeight}>

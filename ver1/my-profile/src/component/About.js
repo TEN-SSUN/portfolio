@@ -40,12 +40,13 @@ const SubText = styled.h1`
     font-weight : bold;
     font-size : 45px;
     margin : 10px;
-    transition : all ease 0.3s; 
     width : 750px;
     left : 50%;
     top : 50%;
-    transform: translate(-50%, -50%);
-    opacity:0.7;
+    transform: translate(-50%, -30%);
+    opacity:0;
+    transition : all ease 1s;
+    visibility:hidden;
 `;
 
 const SubText2 = styled.span`
@@ -71,6 +72,7 @@ function Contact()
     const [browserHeight, setBrowserHeight] = useState(document.documentElement.clientHeight);
     const [posStatus, setPosStatus] = useState("N");
     const [cPos, setCPos] = useState(0);
+    
 
     //sconst location = useLocation();
     //console.log(location);
@@ -129,13 +131,19 @@ function Contact()
 
         window.addEventListener('resize', handleWindowResize);
         window.addEventListener('scroll', handleScrollMove);
+        
+        document.getElementById("MainTextDivision1_subText").style.visibility="visible";
+        document.getElementById("MainTextDivision1_subText").style.opacity=1;
+        document.getElementById("MainTextDivision1_subText").style.transform="translate(-50%, -50%)";
+
     },[handleWindowResize,handleScrollMove])
     
     return (
         <Fragment>
+            
             <MainTextDivision id="MainTextDivision" browserWidth={browserWidth} browserHeight={browserHeight}>
                 <MainText id="mainTitle"></MainText>
-                <SubText>Freelance <SubText2>Front-End</SubText2> and <SubText2>Back-End</SubText2> Developer with an appetite for web design, based in <TextKorea>Korea</TextKorea></SubText>
+                <SubText id="MainTextDivision1_subText" >Freelance <SubText2>Front-End</SubText2> and <SubText2>Back-End</SubText2> Developer with an appetite for web design, based in <TextKorea>Korea</TextKorea></SubText>
             </MainTextDivision>
             <MainTextDivision2 id="MainTextDivision2" browserWidth={browserWidth} browserHeight={browserHeight}>
                 <SubText>Freelance <SubText2>Front-End</SubText2> and Back-End Developer with an appetite for web design, based in <p style={{fontColor:"red"}}>Korea</p></SubText>

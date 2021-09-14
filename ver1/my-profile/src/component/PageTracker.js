@@ -67,7 +67,7 @@ export default function Contact(props)
     
     useEffect(() => 
     {
-        requestAnimationFrame(updatePinPosition);
+        updatePinPosition();
     },[]);
 
     return (

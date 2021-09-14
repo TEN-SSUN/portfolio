@@ -59,6 +59,7 @@ const TitleDivision = styled.div`
     font-size:30px;
     color:white;
     transition-delay:${delaySec}s;
+    opacity:${props => (props.num===props.currentPage?1:0)};
 `;
 
 const SubTextDivision = styled.div`
@@ -76,6 +77,7 @@ const SubTextDivision = styled.div`
     font-size:20px;
     color:white;
     transition-delay:${delaySec}s;
+    opacity:${props => (props.num===props.currentPage?1:0)};
 `;
 
 // position : fixed;
@@ -95,28 +97,12 @@ function lpad(s, padLength, padString)
     return s;
 }
 
-
 function Contact(props) 
 {
-    const [num, setNum] = useState(0);
+    const [num, setNum] = useState();
     const [gapPercent, setGapPercent] = useState(props.browserHeight);
     const [browserHeight, setBrowserHeight] = useState(props.browserHeight);
     const [currentPage, setCurrentPage] = useState(0);
-
-    const onMouseEnter =()=> {
-        
-        //document.getElementById("workMenuDiv"+num).style.width="40px";
-        // if(num!==currentPage)
-        // document.getElementById("workNumText"+num).style.transform="translate(10px, 50%)";
-        
-    }
-    
-    const onMouseLeave =()=> {
-        
-        //document.getElementById("workMenuDiv"+num).style.width="30px";   
-        // if(num!==currentPage)
-        // document.getElementById("workNumText"+num).style.transform="translate(0, 50%)"; 
-    }
 
     const onClick =()=>{
         props.omMoveContent(num);
@@ -130,14 +116,12 @@ function Contact(props)
     },[props])
     
     return (
-        <WrapDiv onMouseEnter={onMouseEnter} 
-                onMouseLeave={onMouseLeave} 
-                onClick={onClick}
+        <WrapDiv onClick={onClick}
                 gapPercent={gapPercent} 
                 browserHeight={browserHeight} 
-                num={num} color={props.color} 
+                num={num} 
                 currentPage={currentPage}>
-            <MainTextDivision id={"workMenuDiv"+num} gapPercent={gapPercent} browserHeight={browserHeight} num={num} color={props.color} currentPage={currentPage}/>
+            <MainTextDivision id={"workMenuDiv"+num} gapPercent={gapPercent} browserHeight={browserHeight} num={num} currentPage={currentPage}/>
             <NumberingText id={"workNumText"+num} gapPercent={gapPercent} browserHeight={browserHeight} num={num} currentPage={currentPage}>{lpad(num,2,"0")}</NumberingText>
             <TitleDivision  gapPercent={gapPercent} browserHeight={browserHeight} currentPage={currentPage}  num={num}>{props.title}</TitleDivision>
             <SubTextDivision  gapPercent={gapPercent} browserHeight={browserHeight} currentPage={currentPage}  num={num}>{props.contents}</SubTextDivision>
